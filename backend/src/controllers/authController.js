@@ -3,7 +3,6 @@ import User from '../models/User.js';
 import VerificationCode from '../models/VerificationCode.js';
 import { sendVerificationCode } from '../utils/emailService.js';
 import { generateVerificationCode } from '../utils/generateCode.js';
-import Cart from '../models/Cart.js';
 
 const generateToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
@@ -106,45 +105,6 @@ export const verifyCodeAndRegister = async (req, res) => {
     // Generar token
     const token = generateToken(user._id);
 
-    // Merge session cart if sessionId provided
-    const { sessionId } = req.body;
-    console.log('Registration - sessionId received:', sessionId);
-    if (sessionId) {
-      try {
-        const sessionCart = await Cart.findOne({ sessionId });
-        console.log('Session cart found:', sessionCart ? `Yes, with ${sessionCart.items?.length || 0} items` : 'No');
-        if (sessionCart && sessionCart.items && sessionCart.items.length > 0) {
-          // Find or create user cart
-          let userCart = await Cart.findOne({ userId: user._id });
-          if (!userCart) {
-            userCart = new Cart({ userId: user._id, items: [] });
-          }
-
-          // Merge items from session cart to user cart
-          for (const sessionItem of sessionCart.items) {
-            const existingItemIndex = userCart.items.findIndex(
-              item => item.product.toString() === sessionItem.product.toString()
-            );
-
-            if (existingItemIndex >= 0) {
-              // Item exists, increase quantity
-              userCart.items[existingItemIndex].quantity += sessionItem.quantity;
-            } else {
-              // New item, add to cart
-              userCart.items.push(sessionItem);
-            }
-          }
-
-          await userCart.save();
-          console.log('Cart merged successfully. User cart now has', userCart.items.length, 'items');
-          // Delete session cart
-          await Cart.deleteOne({ _id: sessionCart._id });
-        }
-      } catch (cartError) {
-        console.error('Error merging carts:', cartError);
-        // Don't fail registration if cart merge fails
-      }
-    }
 
     res.status(201).json({
       message: 'Usuario registrado exitosamente',

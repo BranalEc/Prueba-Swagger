@@ -17,7 +17,6 @@ import notificationRoutes from "./routes/notificationRoutes.js";
 import geocodingRoutes from "./routes/geocodingRoutes.js";
 import closureDateRoutes from "./routes/closureDateRoutes.js";
 import fontRoutes from "./routes/fontRoutes.js";
-import cartRoutes from "./routes/cart.js";
 import userRoutes from "./routes/users.js";
 
 const app = express();

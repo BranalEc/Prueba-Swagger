@@ -1,5 +1,4 @@
 import Order from '../models/Order.js';
-import Cart from '../models/Cart.js';
 import Product from '../models/Product.js';
 import Counter from '../models/Counter.js';
 import { createNotification } from './notificationController.js';
@@ -20,40 +19,14 @@ const generateOrderNumber = async () => {
 
 export const createOrder = async (req, res) => {
     try {
-        const { customer, idCart, user, subtotal, shippingCost, total, deliveryMethod, pickupDetails } = req.body;
+        const { customer, user, subtotal, shippingCost, total, deliveryMethod, pickupDetails } = req.body;
 
-        if (!idCart && (!req.body.items || req.body.items.length === 0)) {
-            return res.status(400).json({ message: 'Cart ID or Items are required' });
-        }
-
-        let cart = null;
-        if (idCart) {
-            cart = await Cart.findById(idCart);
-            if (!cart) {
-                return res.status(404).json({ message: 'Cart not found' });
-            }
+        if (!req.body.items || !Array.isArray(req.body.items) || req.body.items.length === 0) {
+            return res.status(400).json({ message: 'Items are required' });
         }
 
         const orderNumber = await generateOrderNumber();
-
-        // Snapshot items: prefer items from request (POS or direct), fallback to cart items
-        let orderItems = [];
-        if (req.body.items && Array.isArray(req.body.items) && req.body.items.length > 0) {
-            orderItems = req.body.items;
-        } else if (cart && cart.items) {
-            // Fallback: map from cart items structure
-            orderItems = cart.items.map(item => ({
-                product: item.product,
-                quantity: item.quantity,
-                price: item.price,
-                size: item.size,
-                color: item.color
-            }));
-        }
-
-        if (orderItems.length === 0) {
-            return res.status(400).json({ message: 'Order must have items' });
-        }
+        const orderItems = req.body.items;
 
         // Check stock availability first
         for (const item of orderItems) {
@@ -144,11 +117,10 @@ export const createOrder = async (req, res) => {
         const order = new Order({
             orderNumber,
             customer: processedCustomer,
-            idCart,
             items: orderItems, // Save the snapshot
-            subtotal: subtotal || (cart ? cart.total : orderItems.reduce((acc, item) => acc + (item.price * item.quantity), 0)),
+            subtotal: subtotal || orderItems.reduce((acc, item) => acc + (item.price * item.quantity), 0),
             shippingCost: shippingCost || 0,
-            total: total || (cart ? cart.total : orderItems.reduce((acc, item) => acc + (item.price * item.quantity), 0)),
+            total: total || orderItems.reduce((acc, item) => acc + (item.price * item.quantity), 0),
             user: user || null,
             status: deliveryMethod === 'pos' ? 'delivered' : 'pending',
             deliveryMethod: deliveryMethod || 'delivery',
@@ -258,9 +230,6 @@ export const createOrder = async (req, res) => {
             });
         }
 
-        // Optionally clear the cart or mark it as converted? 
-        // Plan said "The linked Cart document should not be modified or deleted". 
-        // So distinct carts per session/order is implied.
 
         res.status(201).json(createdOrder);
     } catch (error) {
@@ -276,13 +245,6 @@ export const getAllOrders = async (req, res) => {
     try {
         const orders = await Order.find()
             .populate('items.product')
-            .populate({
-                path: 'idCart',
-                populate: {
-                    path: 'items.product',
-                    model: 'Product'
-                }
-            })
             .sort({ createdAt: -1 });
         res.json(orders);
     } catch (error) {
@@ -293,14 +255,7 @@ export const getAllOrders = async (req, res) => {
 export const getOrderById = async (req, res) => {
     try {
         const order = await Order.findById(req.params.id)
-            .populate('items.product')
-            .populate({
-                path: 'idCart',
-                populate: {
-                    path: 'items.product',
-                    model: 'Product'
-                }
-            });
+            .populate('items.product');
 
         if (!order) {
             return res.status(404).json({ message: 'Order not found' });

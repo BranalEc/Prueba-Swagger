@@ -2,7 +2,6 @@ import User from '../models/User.js';
 import generateToken from "../utils/generateToken.js";
 import { sendVerificationCode } from "../utils/emailService.js";
 import jwt from 'jsonwebtoken';
-import Cart from '../models/Cart.js';
 
 
 
@@ -103,45 +102,6 @@ export const verifyAccount = async (req, res) => {
 
     const token = generateToken(user._id);
 
-    // Merge session cart if sessionId provided
-    const { sessionId } = req.body;
-    console.log('Registration - sessionId received:', sessionId);
-    if (sessionId) {
-      try {
-        const sessionCart = await Cart.findOne({ sessionId });
-        console.log('Session cart found:', sessionCart ? `Yes, with ${sessionCart.items?.length || 0} items` : 'No');
-        if (sessionCart && sessionCart.items && sessionCart.items.length > 0) {
-          // Find or create user cart (using 'user' field, not 'userId')
-          let userCart = await Cart.findOne({ user: user._id });
-          if (!userCart) {
-            userCart = new Cart({ user: user._id, items: [] });
-          }
-
-          // Merge items from session cart to user cart
-          for (const sessionItem of sessionCart.items) {
-            const existingItemIndex = userCart.items.findIndex(
-              item => item.product.toString() === sessionItem.product.toString()
-            );
-
-            if (existingItemIndex >= 0) {
-              // Item exists, increase quantity
-              userCart.items[existingItemIndex].quantity += sessionItem.quantity;
-            } else {
-              // New item, add to cart
-              userCart.items.push(sessionItem);
-            }
-          }
-
-          await userCart.save();
-          console.log('Cart merged successfully. User cart now has', userCart.items.length, 'items');
-          // Delete session cart
-          await Cart.deleteOne({ _id: sessionCart._id });
-        }
-      } catch (cartError) {
-        console.error('Error merging carts:', cartError);
-        // Don't fail registration if cart merge fails
-      }
-    }
 
     res.json({
       token,
