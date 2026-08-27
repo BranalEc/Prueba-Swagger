@@ -49,7 +49,6 @@ app.use("/api/announcement-bar", announcementBarRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/store-hours", storeHoursRoutes);
 app.use("/api/notifications", notificationRoutes);
-app.use("/api/cart", cartRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/geocoding", geocodingRoutes);
 app.use("/api/closure-dates", closureDateRoutes);

@@ -21,31 +21,6 @@ const orderSchema = new mongoose.Schema(
                 mapScreenshot: { type: String } // Base64 or file path
             }
         },
-        idCart: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Cart',
-            required: false,
-        },
-        items: [
-            {
-                product: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: 'Product',
-                    required: true
-                },
-                quantity: {
-                    type: Number,
-                    required: true,
-                    min: 1
-                },
-                price: {
-                    type: Number,
-                    required: true
-                },
-                size: { type: String },
-                color: { type: String }
-            }
-        ],
         subtotal: {
             type: Number,
             required: true,

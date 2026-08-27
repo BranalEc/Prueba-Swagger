@@ -7,7 +7,7 @@ const settingsSchema = new mongoose.Schema({
         unique: true,
     },
     value: {
-        type: mongoose.Schema.Types.Mixed,
+        type: Boolen,
         required: true,
     },
 }, {
