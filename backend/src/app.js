@@ -1,7 +1,8 @@
 import cors from "cors";
 import express from "express";
 import { errorHandler, notFound } from "./middlewares/errorMiddleware.js";
-
+import swaggerUi from "swagger-ui-express"
+import swaggerDocument from "./utils/ricaldone-b39-prueba_swagger-1-unresolved.json" with {type: "json"};
 import barcodeRoutes from "./routes/barcodeRoutes.js";
 import excelRoutes from "./routes/excelRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
@@ -27,6 +28,12 @@ app.use(
     // Permitir envío de cookies y credenciales
     credentials: true,
   })
+);
+
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument)
 );
 
 app.use(express.json());

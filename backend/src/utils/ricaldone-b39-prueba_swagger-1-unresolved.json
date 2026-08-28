@@ -1,0 +1,2058 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "version" : "1",
+    "title" : "Prueba",
+    "description" : "Prueba"
+  },
+  "paths" : {
+    "/api/auth/register/request-code" : {
+      "post" : {
+        "summary" : "Your POST endpoint",
+        "tags" : [ "auth" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Este correo electrónico ya está registrado",
+            "content" : { }
+          },
+          "500" : {
+            "description" : "Error al solicitar código de verificación",
+            "headers" : { },
+            "content" : { }
+          }
+        },
+        "operationId" : "post-api-register-request-code",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "required" : [ "email" ],
+                "properties" : {
+                  "email" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters" : [ ]
+    },
+    "/api/auth/register/verify" : {
+      "post" : {
+        "summary" : "Your POST endpoint",
+        "tags" : [ "auth" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Este correo electrónico ya está registrado"
+          },
+          "500" : {
+            "description" : "Error al registrar usuario"
+          }
+        },
+        "operationId" : "post-api-register-verify",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "required" : [ "email", "code", "password" ],
+                "properties" : {
+                  "email" : {
+                    "type" : "string"
+                  },
+                  "code" : {
+                    "type" : "string"
+                  },
+                  "password" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters" : [ ]
+    },
+    "/api/auth/login" : {
+      "post" : {
+        "summary" : "Your POST endpoint",
+        "tags" : [ "auth" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Correo electrónico y contrasena son requeridos"
+          },
+          "401" : {
+            "description" : "Credenciales inválidas"
+          },
+          "500" : {
+            "description" : "Error al iniciar sesión"
+          }
+        },
+        "operationId" : "post-api-login",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "required" : [ "email", "password" ],
+                "properties" : {
+                  "email" : {
+                    "type" : "string"
+                  },
+                  "password" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters" : [ ]
+    },
+    "/api/auth/password-reset/request" : {
+      "post" : {
+        "summary" : "Your POST endpoint",
+        "tags" : [ "auth" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "El correo electrónico es requerido"
+          },
+          "500" : {
+            "description" : "Error al solicitar recuperación de contrasena"
+          }
+        },
+        "operationId" : "post-api-auth-password-reset-request",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "required" : [ "email" ],
+                "properties" : {
+                  "email" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/password-reset/verify" : {
+      "post" : {
+        "summary" : "Your POST endpoint",
+        "tags" : [ "auth" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Todo los campos son requeridos"
+          },
+          "404" : {
+            "description" : "Usuario no encontrado"
+          },
+          "500" : {
+            "description" : "Error al restablecer contrasena"
+          }
+        },
+        "operationId" : "post-api-auth-password-reset-verify",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "required" : [ "email", "code", "newPassword" ],
+                "properties" : {
+                  "email" : {
+                    "type" : "string"
+                  },
+                  "code" : {
+                    "type" : "string"
+                  },
+                  "newPassword" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/me" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "auth" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Error al obtener usuario"
+          }
+        },
+        "operationId" : "get-api-auth-me",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : { }
+        }
+      }
+    },
+    "/api/categories/" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "categories" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : { }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-categories"
+      },
+      "post" : {
+        "summary" : "Your POST endpoint",
+        "tags" : [ "categories" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "201" : {
+            "description" : "Created"
+          },
+          "400" : {
+            "description" : "El valor ingresado para field ya existe"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "post-api-categories",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Category"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/categories/:id" : {
+      "put" : {
+        "summary" : "Your PUT endpoint",
+        "tags" : [ "categories" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Ya existe una categoría con ese nombre"
+          },
+          "404" : {
+            "description" : "Categoría no encontrada"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "put-api-categories-:id",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Category"
+              }
+            }
+          }
+        }
+      },
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "categories" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Categoría no encontrada"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-categories-:id",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ]
+      },
+      "delete" : {
+        "summary" : "Your DELETE endpoint",
+        "tags" : [ "categories" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Categoría no encontrada"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "delete-api-categories-:id",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ]
+      }
+    },
+    "/api/products/" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "products" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-products"
+      },
+      "post" : {
+        "summary" : "Your POST endpoint",
+        "tags" : [ "products" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "201" : {
+            "description" : "Created"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "409" : {
+            "description" : "El código de barra ya esta registrado"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "post-api-products",
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/products/allProducts" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "products" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-products-allProducts"
+      }
+    },
+    "/api/products/barcode/:barcode" : {
+      "put" : {
+        "summary" : "Your PUT endpoint",
+        "tags" : [ "products" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Producto no encontrado"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "put-api-products-barcode-:barcode",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Product"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Your DELETE endpoint",
+        "tags" : [ "products" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Producto no encontrado"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "delete-api-products-barcode-:barcode",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ]
+      }
+    },
+    "/api/products/:productId/variant-stock" : {
+      "put" : {
+        "summary" : "Your PUT endpoint",
+        "tags" : [ "products" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "put-api-products-:productId-variant-stock",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/products/:id" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "products" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-products-:id",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ]
+      },
+      "put" : {
+        "summary" : "Your PUT endpoint",
+        "tags" : [ "products" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "409" : {
+            "description" : "Conflict"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "put-api-products-:id",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Product"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Your DELETE endpoint",
+        "tags" : [ "products" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found",
+            "content" : { }
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "delete-api-products-:id",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ]
+      }
+    },
+    "/api/barcodes/" : {
+      "parameters" : [ ],
+      "post" : {
+        "summary" : "Your POST endpoint",
+        "tags" : [ "barcodes" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "201" : {
+            "description" : "Created"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "post-api-barcodes"
+      }
+    },
+    "/api/excel/export" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "excel" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-excel-export"
+      }
+    },
+    "/api/excel/file" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "excel" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-excel-file"
+      }
+    },
+    "/api/excel/import" : {
+      "post" : {
+        "summary" : "Your POST endpoint",
+        "tags" : [ "excel" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "post-api-excel-import",
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/images/upload" : {
+      "post" : {
+        "summary" : "Your POST endpoint",
+        "tags" : [ "images" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "post-api-images-upload",
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AnnouncementImage"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/images/delete-by-url" : {
+      "delete" : {
+        "summary" : "Your DELETE endpoint",
+        "tags" : [ "images" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "delete-api-images-delete-by-url",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ]
+      }
+    },
+    "/api/images/upload-announcement" : {
+      "post" : {
+        "summary" : "Your POST endpoint",
+        "tags" : [ "images" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "post-api-images-upload-announcement",
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AnnouncementImage"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/images/announcement-gallery" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "images" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-images-announcement-gallery"
+      }
+    },
+    "/api/images/announcement/:id" : {
+      "delete" : {
+        "summary" : "Your DELETE endpoint",
+        "tags" : [ "images" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "delete-api-images-announcement-:id",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ]
+      }
+    },
+    "/api/images/upload-logo" : {
+      "post" : {
+        "summary" : "Your POST endpoint",
+        "tags" : [ "images" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "post-api-images-upload-logo",
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AnnouncementImage"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/images/:publicId" : {
+      "delete" : {
+        "summary" : "Your DELETE endpoint",
+        "tags" : [ "images" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "delete-api-images-:publicId",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ]
+      }
+    },
+    "/api/settings/:key" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "settings" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-settings-:key"
+      },
+      "put" : {
+        "summary" : "Your PUT endpoint",
+        "tags" : [ "settings" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "put-api-settings-:key",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Settings"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/banners/" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "banners" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "201" : {
+            "description" : "Created"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-banners"
+      },
+      "post" : {
+        "summary" : "Your POST endpoint",
+        "tags" : [ "banners" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "201" : {
+            "description" : "Created"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "post-api-banners",
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Banner"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/banners/reorder" : {
+      "put" : {
+        "summary" : "Your PUT endpoint",
+        "tags" : [ "banners" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "put-api-banners-reorder",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Banner"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/banners/:id" : {
+      "put" : {
+        "summary" : "Your PUT endpoint",
+        "tags" : [ "banners" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "put-api-banners-:id",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Banner"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Your DELETE endpoint",
+        "tags" : [ "banners" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "delete-api-banners-:id",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ]
+      }
+    },
+    "/api/announcement-bar/active" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "announcement-bar" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-announcement-bar-active"
+      }
+    },
+    "/api/announcement-bar/" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "announcement-bar" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-announcement-bar"
+      },
+      "post" : {
+        "summary" : "Your POST endpoint",
+        "tags" : [ "announcement-bar" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "201" : {
+            "description" : "Created"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "post-api-announcement-bar",
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AnnouncementBar"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/announcement-bar/:id" : {
+      "put" : {
+        "summary" : "Your PUT endpoint",
+        "tags" : [ "announcement-bar" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "put-api-announcement-bar-:id",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AnnouncementBar"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Your DELETE endpoint",
+        "tags" : [ "announcement-bar" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "delete-api-announcement-bar-:id",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ]
+      }
+    },
+    "/api/orders/" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "orders" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-orders"
+      },
+      "post" : {
+        "summary" : "Your POST endpoint",
+        "tags" : [ "orders" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "post-api-orders",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Order"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/orders/:id" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "orders" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-orders-:id"
+      },
+      "put" : {
+        "summary" : "Your PUT endpoint",
+        "tags" : [ "orders" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "put-api-orders-:id",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Order"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/store-hours/" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "store-hours" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-store-hours"
+      }
+    },
+    "/api/store-hours/bulk" : {
+      "put" : {
+        "summary" : "Your PUT endpoint",
+        "tags" : [ "store-hours" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "put-api-store-hours-bulk",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/StoreHours"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/store-hours/:day" : {
+      "put" : {
+        "summary" : "Your PUT endpoint",
+        "tags" : [ "store-hours" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "put-api-store-hours-:day",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/StoreHours"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/notifications/" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "notification" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-notifications"
+      }
+    },
+    "/api/notifications/:id/read" : {
+      "put" : {
+        "summary" : "Your PUT endpoint",
+        "tags" : [ "notification" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "put-api-notifications-:id-read",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Notification"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/notifications/:id" : {
+      "delete" : {
+        "summary" : "Your DELETE endpoint",
+        "tags" : [ "notification" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "delete-api-notifications-:id",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ]
+      }
+    },
+    "/api/users/wishlist" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "users" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-users-wishlist"
+      },
+      "post" : {
+        "summary" : "Your POST endpoint",
+        "tags" : [ "users" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "post-api-users-wishlist",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/profile" : {
+      "get" : {
+        "summary" : "Your GET endpoint",
+        "tags" : [ "users" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "get-api-users-profile"
+      },
+      "put" : {
+        "summary" : "Your PUT endpoint",
+        "tags" : [ "users" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          }
+        },
+        "operationId" : "put-api-users-profile",
+        "parameters" : [ {
+          "schema" : {
+            "type" : "string"
+          },
+          "in" : "query",
+          "name" : "id"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers" : [ {
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/ricaldone-b39/prueba_swagger/1"
+  } ],
+  "components" : {
+    "schemas" : {
+      "Category" : {
+        "title" : "Category",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "slug" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "subcategories" : {
+            "$ref" : "#/components/schemas/subcategories"
+          },
+          "featured" : {
+            "type" : "boolean"
+          },
+          "order" : {
+            "type" : "string"
+          },
+          "icon" : {
+            "type" : "string"
+          }
+        }
+      },
+      "subcategories" : {
+        "title" : "subcategories",
+        "type" : "object",
+        "required" : [ "name", "slug" ],
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "slug" : {
+            "type" : "string"
+          },
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Product" : {
+        "title" : "Product",
+        "type" : "object",
+        "required" : [ "name", "description", "price", "category" ],
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "price" : {
+            "type" : "number"
+          },
+          "originalPrice" : {
+            "type" : "number"
+          },
+          "images" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "category" : {
+            "$ref" : "#/components/schemas/Category"
+          },
+          "categorySlug" : {
+            "type" : "string"
+          },
+          "subcategory" : {
+            "type" : "string"
+          },
+          "sizes" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "colors" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "stock" : {
+            "type" : "number"
+          },
+          "hasVariants" : {
+            "type" : "boolean"
+          },
+          "variants" : {
+            "$ref" : "#/components/schemas/variants"
+          },
+          "brand" : {
+            "type" : "string"
+          },
+          "rating" : {
+            "type" : "number"
+          },
+          "proveedor" : {
+            "type" : "string"
+          },
+          "importe" : {
+            "type" : "number"
+          },
+          "taxes" : {
+            "type" : "number"
+          },
+          "impuestosImportacion" : {
+            "type" : "number"
+          },
+          "flete" : {
+            "type" : "number"
+          },
+          "costo" : {
+            "type" : "number"
+          },
+          "paraTienda" : {
+            "type" : "boolean"
+          },
+          "location" : {
+            "type" : "string"
+          },
+          "barcode" : {
+            "type" : "string"
+          },
+          "stockZeroAt" : {
+            "type" : "string",
+            "format" : "date"
+          }
+        }
+      },
+      "variants" : {
+        "title" : "variants",
+        "type" : "object",
+        "required" : [ "stock" ],
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "size" : {
+            "type" : "string"
+          },
+          "color" : {
+            "type" : "string"
+          },
+          "stock" : {
+            "type" : "number"
+          },
+          "images" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "sku" : {
+            "type" : "string"
+          },
+          "stockZeroAt" : {
+            "type" : "string",
+            "format" : "date"
+          }
+        }
+      },
+      "Banner" : {
+        "title" : "Banner",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "type" : {
+            "enum" : [ "image", "video", "collage" ]
+          },
+          "imageUrl" : {
+            "type" : "string"
+          },
+          "images" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "videoUrl" : {
+            "type" : "string"
+          },
+          "videoDuration" : {
+            "type" : "number"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "subtitle" : {
+            "type" : "string"
+          },
+          "link" : {
+            "type" : "string"
+          },
+          "active" : {
+            "type" : "string"
+          },
+          "order" : {
+            "type" : "string"
+          }
+        }
+      },
+      "AnnouncementBar" : {
+        "title" : "AnnouncementBar",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "text" : {
+            "type" : "string"
+          },
+          "imageUrl" : {
+            "type" : "string"
+          },
+          "imagePublicId" : {
+            "type" : "string"
+          },
+          "active" : {
+            "type" : "boolean"
+          },
+          "backgroundColor" : {
+            "type" : "string"
+          },
+          "textColor" : {
+            "type" : "string"
+          },
+          "animation" : {
+            "enum" : [ "none", "marquee", "pulse", "fadeIn", "slideFromTop", "bounce", "wobble", "heartbeat", "blink", "shake", "swing", "rubberBand", "flash", "jello" ]
+          },
+          "decoration" : {
+            "enum" : [ "none", "christmas", "halloween", "valentines", "mothers_day", "fathers_day", "black_week", "easter", "new_year", "independence_sv", "birthday", "august_fest" ]
+          },
+          "height" : {
+            "type" : "number"
+          },
+          "fontSize" : {
+            "type" : "number"
+          }
+        }
+      },
+      "AnnouncementImage" : {
+        "title" : "AnnouncementImage",
+        "type" : "object",
+        "required" : [ "url", "public_id" ],
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "url" : {
+            "type" : "string"
+          },
+          "public_id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ClosureDate" : {
+        "title" : "ClosureDate",
+        "type" : "object",
+        "required" : [ "date" ],
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "date" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "reason" : {
+            "type" : "string"
+          },
+          "hasSpecialHours" : {
+            "type" : "boolean"
+          },
+          "specialHours" : {
+            "type" : "string"
+          },
+          "closeTime" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Counter" : {
+        "title" : "Counter",
+        "type" : "object",
+        "required" : [ "name", "value" ],
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          }
+        }
+      },
+      "CustomFont" : {
+        "title" : "CustomFont",
+        "type" : "object",
+        "required" : [ "name", "url", "public_id", "format", "originalName" ],
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "url" : {
+            "type" : "string"
+          },
+          "public_id" : {
+            "type" : "string"
+          },
+          "format" : {
+            "enum" : [ "ttf", "otf", "woff", "woff2" ]
+          },
+          "originalName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Notification" : {
+        "title" : "Notification",
+        "type" : "object",
+        "required" : [ "type", "message" ],
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "type" : {
+            "enum" : [ "low_stock", "pickup_ready", "payment_failed", "info", "system_alert" ]
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "metadata" : {
+            "type" : "object"
+          },
+          "isRead" : {
+            "type" : "boolean"
+          },
+          "createdAt" : {
+            "type" : "string",
+            "format" : "date"
+          }
+        }
+      },
+      "Order" : {
+        "title" : "Order",
+        "type" : "object",
+        "required" : [ "orderNumber", "subtotal", "shippingCost", "total" ],
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "orderNumber" : {
+            "type" : "string"
+          },
+          "customer" : {
+            "$ref" : "#/components/schemas/customer"
+          },
+          "subtotal" : {
+            "type" : "number"
+          },
+          "shippingCost" : {
+            "type" : "number"
+          },
+          "total" : {
+            "type" : "number"
+          },
+          "status" : {
+            "enum" : [ "pending", "processing", "shipped", "delivered", "cancelled" ]
+          },
+          "user" : {
+            "type" : "string"
+          },
+          "deliveryMethod" : {
+            "enum" : [ "delivery", "pickup", "pos" ]
+          },
+          "pickupDetails" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "customer" : {
+        "title" : "customer",
+        "type" : "object",
+        "required" : [ "fullName", "email", "phone", "address" ],
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "fullName" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "phone" : {
+            "type" : "string"
+          },
+          "address" : {
+            "type" : "string"
+          },
+          "reference" : {
+            "type" : "string"
+          },
+          "additionalInstructions" : {
+            "type" : "string"
+          },
+          "location" : {
+            "$ref" : "#/components/schemas/location"
+          }
+        }
+      },
+      "location" : {
+        "title" : "location",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "lat" : {
+            "type" : "number"
+          },
+          "Ing" : {
+            "type" : "number"
+          },
+          "geocodeAddress" : {
+            "type" : "string"
+          },
+          "mapScreenshot" : {
+            "type" : "string"
+          }
+        }
+      },
+      "User" : {
+        "title" : "User",
+        "type" : "object",
+        "required" : [ "email", "password" ],
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "firstName" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          },
+          "phone" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          },
+          "role" : {
+            "enum" : [ "user", "admin", "seller" ]
+          },
+          "gender" : {
+            "enum" : [ "masculino", "femenino", "prefiero no decirlo" ]
+          },
+          "birthDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "wishlist" : {
+            "$ref" : "#/components/schemas/Product"
+          },
+          "isVerified" : {
+            "type" : "boolean"
+          },
+          "acceptedTerms" : {
+            "type" : "boolean"
+          },
+          "verifacationCode" : {
+            "type" : "string"
+          },
+          "verficationCodeExpires" : {
+            "type" : "string",
+            "format" : "date"
+          }
+        }
+      },
+      "Settings" : {
+        "title" : "Settings",
+        "type" : "object",
+        "required" : [ "key", "value" ],
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "key" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "StoreHours" : {
+        "title" : "StoreHours",
+        "type" : "object",
+        "required" : [ "day" ],
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "day" : {
+            "type" : "number"
+          },
+          "openTime" : {
+            "type" : "string"
+          },
+          "closeTime" : {
+            "type" : "string"
+          },
+          "closed" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "VerificationCodeSchema" : {
+        "title" : "VerificationCodeSchema",
+        "type" : "object",
+        "required" : [ "email", "code", "type" ],
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "code" : {
+            "type" : "string"
+          },
+          "type" : {
+            "enum" : [ "registration", "password_reset" ]
+          },
+          "expiresAt" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "used" : {
+            "type" : "boolean"
+          }
+        }
+      }
+    }
+  }
+}
